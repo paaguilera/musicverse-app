@@ -41,7 +41,7 @@ object RetrofitProvider {
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl("http://192.168.1.8:8080/")
-//          .baseUrl("http://localhost:8080/")
+//            .baseUrl("http://localhost:8080/")
             .client(com.example.musicverse.network.RetrofitProvider.client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

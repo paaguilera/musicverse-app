@@ -1,6 +1,7 @@
 package com.example.musicverse.service
 
 import android.app.Application
+import com.example.musicverse.data.UsuarioSession
 import com.example.musicverse.db.AppDatabase
 import com.example.musicverse.dto.LoginDTO
 import com.example.musicverse.dto.ModificarDTO
@@ -27,7 +28,7 @@ class UsuarioService(App: Application){
             genero = dto.genero
         )
         val usuarios = usuarioRepository.obtenerUsuarios()
-
+        UsuarioSession.iniciarLogin(usuario.rol, usuario.correo)
         usuarios.forEach {
             user ->
             if(user.correo.equals(usuario.correo)){
@@ -39,11 +40,11 @@ class UsuarioService(App: Application){
         }
     }
     suspend fun modiciarUsuario(dto: ModificarDTO, rut: String): Int{
+        UsuarioSession.cambiarCorreo(dto.correo)
         val hola = usuarioRepository.actualizarUsuario(dto, rut)
         return hola
     }
     suspend fun obtenerCorreo(): String{
-
         val usuarios = usuarioRepository.obtenerUsuarios()
         var correo: String = "";
 
@@ -58,6 +59,7 @@ class UsuarioService(App: Application){
         return rut
     }
     suspend fun truncarTabla() {
+        UsuarioSession.cerrarSesion()
         val usuarios = usuarioRepository.obtenerUsuarios()
         usuarios.forEach { usuario -> usuarioRepository.delete(usuario) }
     }

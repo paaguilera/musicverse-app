@@ -5,14 +5,11 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.musicverse.Pantalla
 import com.example.musicverse.api.ApiService
-import com.example.musicverse.dao.UsuarioDAO
 import com.example.musicverse.model.Genero
-import com.example.musicverse.model.Usuario
 import com.example.musicverse.network.RetrofitProvider
 import com.example.musicverse.service.UsuarioService
 import kotlinx.coroutines.flow.MutableStateFlow

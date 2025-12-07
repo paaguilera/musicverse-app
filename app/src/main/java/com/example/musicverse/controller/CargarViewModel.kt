@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.musicverse.Pantalla
 import com.example.musicverse.api.ApiService
+import com.example.musicverse.data.UsuarioSession
 import com.example.musicverse.dto.LoginDTO
 import com.example.musicverse.model.LoginGet
 import com.example.musicverse.model.LoginPost
@@ -42,7 +43,7 @@ class CargarViewModel (app: Application): AndroidViewModel(app){
                 nav.navigate(Pantalla.Bienvenida.ruta) { popUpTo(0) }
             } else {
                 var usuario: Usuario = usuarios.component1()
-
+                UsuarioSession.iniciarLogin(usuario.rol,usuario.correo)
                 try {
                     _state.update { it.copy(isCreating = true, createError = null) }
 
@@ -55,10 +56,7 @@ class CargarViewModel (app: Application): AndroidViewModel(app){
                     if (creado.mensaje.equals("ok")) {
                         _state.update {
                             it.copy(
-                                created = creado,
-                                isCreating = false,
-                                loginState = true
-                            )
+                                created = creado, isCreating = false, loginState = true)
                         }
                         nav.navigate(Pantalla.Inicio.ruta)
                     } else {

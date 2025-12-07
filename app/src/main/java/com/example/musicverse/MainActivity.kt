@@ -1,12 +1,11 @@
 package com.example.musicverse
 
-import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.musicverse.controller.CarritoManagerViewModel
+import com.example.musicverse.data.UsuarioSession
 import com.example.musicverse.view.AplicacionMusicVerse
-import java.util.Locale
 
 
 class MainActivity : ComponentActivity() {

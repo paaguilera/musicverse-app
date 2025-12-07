@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,6 +28,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.musicverse.Pantalla
 import com.example.musicverse.controller.InicioViewModel
+import com.example.musicverse.data.UsuarioSession
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,7 +60,12 @@ fun TopBarItem(nav: NavController) {
                 Icon(Icons.Default.ShoppingCart, contentDescription = "Carrito", tint = Color.White)
             }
             IconButton(onClick = { nav.navigate(Pantalla.ModificarUsuario.ruta) }) {
-                Icon(Icons.Default.AccountCircle, contentDescription = "Modificar", tint = Color.White)
+                Icon(Icons.Default.Settings, contentDescription = "Modificar", tint = Color.White)
+            }
+            if(UsuarioSession.rol.equals("Admin")){
+                IconButton(onClick = { nav.navigate(Pantalla.ModificarUsuario.ruta) }) {
+                    Icon(Icons.Default.Warning, contentDescription = "Modificar", tint = Color.White)
+                }
             }
             IconButton(onClick = {
                 viewModel.cerrarSession(nav)
