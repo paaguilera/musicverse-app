@@ -26,6 +26,8 @@ sealed class Pantalla(val ruta: String) {
     object Restablecer : Pantalla("restablecer")
     object CorreoEnviado : Pantalla("correo_enviado")
     object AlbumRegistro : Pantalla("album-registro")
+    object Admin: Pantalla("admin")
+    object AdminUsers: Pantalla("admin/users")
     object Intereses : Pantalla("intereses/{origen}/{rut}"){
         fun crearRutaInteres(rut: String,origen: Int) = "intereses/$origen/$rut"
     }

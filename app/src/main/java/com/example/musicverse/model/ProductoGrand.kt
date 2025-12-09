@@ -14,5 +14,6 @@ data class ProductoGrand(
     val artista: String,
     val canciones: List<String>,
     val resenias: List<String>,
-    val genero: String
+    val genero: String,
+    val desabilidato: Boolean
 )

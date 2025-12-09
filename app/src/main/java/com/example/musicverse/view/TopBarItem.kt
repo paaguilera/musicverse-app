@@ -63,7 +63,7 @@ fun TopBarItem(nav: NavController) {
                 Icon(Icons.Default.Settings, contentDescription = "Modificar", tint = Color.White)
             }
             if(UsuarioSession.rol.equals("Admin")){
-                IconButton(onClick = { nav.navigate(Pantalla.ModificarUsuario.ruta) }) {
+                IconButton(onClick = { nav.navigate(Pantalla.Admin.ruta) }) {
                     Icon(Icons.Default.Warning, contentDescription = "Modificar", tint = Color.White)
                 }
             }

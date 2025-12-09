@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,7 +13,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -26,14 +31,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.musicverse.Pantalla
 import com.example.musicverse.model.ProductoLista
 
 @Composable
-fun CardAlbumItem(producto: ProductoLista, onClick: () -> Unit) {
+fun CardAlbumItem(producto: ProductoLista, onClick: () -> Unit, admin: Boolean) {
+    var onClick1: () -> Unit
+    var onClick2: () -> Unit
+    var textoDesa = "Habilitado"
+    if(admin){
+        onClick1 = {}
+        onClick2 = onClick
+    }else{
+        onClick1 = onClick
+        onClick2 = {}
+    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick)
+            .clickable(
+                onClick = onClick1
+            )
             .height(80.dp),
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -68,7 +86,46 @@ fun CardAlbumItem(producto: ProductoLista, onClick: () -> Unit) {
             }
             // Precio
             // CORRECCIÓN: Se quitó el primer "$" ya que valorFormateado ya lo tiene.
-            Text(producto.precio.toString(), fontWeight = FontWeight.SemiBold, color = Color(0xFF6A1B9A), fontSize = 14.sp)
+            if(admin){
+                Column(modifier = Modifier.weight(1f)) {
+                    Text("$"+producto.precio.toString(), fontWeight = FontWeight.SemiBold, color = Color(0xFF6A1B9A), fontSize = 14.sp)
+                    if(producto.desabilidato){
+                        textoDesa = "Desabilitado"
+                    }
+                    Text(textoDesa, fontWeight = FontWeight.SemiBold, color = Color(0xFF6A1B9A), fontSize = 14.sp)
+                }
+                if(producto.desabilidato){
+                    Button(
+                        onClick = onClick2,
+                        colors = ButtonDefaults.buttonColors(Color(0xFF1DC70D)),
+                        shape = CircleShape,
+                        contentPadding = PaddingValues(0.dp),
+                        modifier = Modifier
+                            .size(40.dp)
+                            .wrapContentWidth())
+                    { Text("+",
+                        color = Color.White,
+                        fontSize = 20.sp,)
+                    }
+                }else{
+                    Button(
+                        onClick = onClick2,
+                        colors = ButtonDefaults.buttonColors(Color(0xFFCE0303)),
+                        shape = CircleShape,
+                        contentPadding = PaddingValues(0.dp),
+                        modifier = Modifier
+                            .size(40.dp)
+                            .wrapContentWidth())
+                    { Text("-",
+                        color = Color.White,
+                        fontSize = 20.sp,)
+                    }
+                }
+            }else{
+                Column(modifier = Modifier.weight(1f)) {
+                    Text("$"+producto.precio.toString(), fontWeight = FontWeight.SemiBold, color = Color(0xFF6A1B9A), fontSize = 14.sp)
+                }
+            }
         }
     }
 }

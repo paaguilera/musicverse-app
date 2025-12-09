@@ -1,7 +1,9 @@
 package com.example.musicverse.api
 
+import androidx.room.Delete
 import com.example.musicverse.dto.GeneroDTO
 import com.example.musicverse.dto.ModificarDTO
+import com.example.musicverse.model.EstadoAlbum
 import com.example.musicverse.model.Genero
 import com.example.musicverse.model.GenerosPost
 import com.example.musicverse.model.LoginGet
@@ -11,9 +13,11 @@ import com.example.musicverse.model.ProcesarCompra
 import com.example.musicverse.model.ProductoGrand
 import com.example.musicverse.model.ProductoLista
 import com.example.musicverse.model.RegistroPost
+import com.example.musicverse.model.UsuarioMini
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Multipart
@@ -82,4 +86,19 @@ interface ApiService {
         @Part data: MultipartBody.Part,
         @Part imagen: MultipartBody.Part
     )
+
+    @Headers("Content-Type: application/json")
+    @GET("admin/lista-usuarios")
+    suspend fun usuariosListaMini(): List<UsuarioMini>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("admin/usuario/borrar/{rut}")
+    suspend fun usuarioBorrar(@Path("rut") rut: String): Response<Unit>
+
+    @Headers("Content-Type: application/json")
+    @POST("admin/album/estado/{id}")
+    suspend fun cambiarEstadoAlbum(@Path("id") id: Int, @Body body: EstadoAlbum): Response<Unit>
+
+    @GET("usuario/buscar")
+    suspend fun buscarUsers(@Query("query") query: String): List<UsuarioMini>
 }

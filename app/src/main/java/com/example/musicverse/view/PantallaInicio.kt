@@ -45,6 +45,7 @@ import androidx.navigation.NavController
 import com.example.musicverse.Pantalla
 import com.example.musicverse.controller.InicioViewModel
 import com.example.musicverse.controller.ProductosViewModel
+import com.example.musicverse.data.UsuarioSession
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,10 +58,8 @@ fun PantallaInicio(nav: NavController) {
     val state by prodViewModel.state.collectAsState()
     val initState by viewModel.state.collectAsState()
 
-    val mail by viewModel.correo.observeAsState("")
     val rut by viewModel.rut.observeAsState("")
     LaunchedEffect(Unit) {
-        viewModel.obtenerCorreoDAO()
         viewModel.obtenerRutDAO()
         viewModel.obtenerGeneros()
         prodViewModel.obtenerProductosLista(-1, rut)
@@ -80,7 +79,7 @@ fun PantallaInicio(nav: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally // Centrar
         ) {
             Spacer(Modifier.height(8.dp))
-            Text(text = "Bienvenid@ ${mail}", fontWeight = FontWeight.Bold, fontSize = 15.sp, color = Color.Black, modifier = Modifier.align(Alignment.Start))
+            Text(text = "Bienvenid@ ${UsuarioSession.correo}", fontWeight = FontWeight.Bold, fontSize = 15.sp, color = Color.Black, modifier = Modifier.align(Alignment.Start))
             Spacer(Modifier.height(16.dp))
             Row(
                 modifier = Modifier
@@ -151,9 +150,15 @@ fun PantallaInicio(nav: NavController) {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(state.productosMini) { album ->
-                    CardAlbumItem(album, onClick = {
-                        nav.navigate(Pantalla.Detalle.crear(album.nombre))
-                    })
+                    if(!album.desabilidato){
+                        CardAlbumItem(
+                            album,
+                            onClick = {
+                                nav.navigate(Pantalla.Detalle.crear(album.nombre))
+                            },
+                            false
+                        )
+                    }
                 }
             }
             Spacer(Modifier.height(24.dp))

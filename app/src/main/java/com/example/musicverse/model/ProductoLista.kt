@@ -6,5 +6,6 @@ data class ProductoLista(
     val artista: String,
     val genero: String,
     val precio: Int,
-    val imagenUrl: String
+    val imagenUrl: String,
+    val desabilidato: Boolean
 )

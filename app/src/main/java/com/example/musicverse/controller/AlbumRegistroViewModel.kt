@@ -113,7 +113,7 @@ class AlbumRegistroViewModel (app: Application): AndroidViewModel(app){
                 )
 
                 api.registrarAlbum(data = jsonPart, imagen = imagenPart)
-                nav.navigate(Pantalla.Inicio.ruta)
+                nav.navigate(Pantalla.Admin.ruta)
             } catch (e: Exception) {
                 println(e)
                 _state.update {

@@ -19,6 +19,8 @@ fun AplicacionMusicVerse() {
         composable(Pantalla.Restablecer.ruta) { PantallaRestablecer(nav) }
         composable (Pantalla.AlbumRegistro.ruta) { PantallaRegistrarAlbum(nav) }
         composable(Pantalla.CorreoEnviado.ruta) { PantallaCorreoEnviado(nav) }
+        composable ( Pantalla.AdminUsers.ruta ){ PantallaAdminUsuarios(nav) }
+        composable(Pantalla.Admin.ruta) { PantallaAdmin(nav) }
         composable(
             Pantalla.Intereses.ruta,
             arguments = listOf(
